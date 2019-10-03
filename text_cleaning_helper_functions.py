@@ -28,7 +28,7 @@ def get_tokens(clean_review):
     
     """ 
     get_tokens(clean_review):
-    Returns the individual words from a clean review
+    Returns a list of the individual from a review
     Params:
         clean_review: a review that has been wiped of its puncuation and capital letters
     Returns:
@@ -45,24 +45,25 @@ def get_tokens(clean_review):
 def lem_words(list_of_tokens,lemmatizer):
     """
     lem_words(list_of_tokens, lemmatizer):
-    Returns
+    Returns the lemmas of each token
     Params:
-        list_of_tokens:
-        lemmatizer:
+        list_of_tokens: list of words (tokens) from a single review
+        lemmatizer: instance of the NLTK lemmatizer class
     Returns:
-    
+        a string of lemmas that comprise a review
     """
     wrd_list = [lemmatizer.lemmatize(word) for word in list_of_tokens]
+    # join the individual lemmas into a single string
     return " ".join(wrd_list)
 
 def finalize_token(reviews):
     """
     finalize_token(reviews):
-    Returns
+    Returns the final corpus of reviews
     Params:
-        reviews: 
+        reviews: reviews that have been cleaned
     Returns:
-        corpus: body of text in list form comprised of individual documents as strings
+        A list where each element of the list is a string representing a "cleaned" review
     """
     corpus = []
     for review in tqdm(reviews):
