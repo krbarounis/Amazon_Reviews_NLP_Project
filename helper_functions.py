@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 def clean_review(review):
     """
     clean_review(review):
