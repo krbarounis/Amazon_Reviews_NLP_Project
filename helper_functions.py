@@ -127,3 +127,80 @@ def plot_AUC_ROC(y_score,fpr,tpr):
     plt.title('Receiver operating characteristic (ROC) Curve')
     plt.legend(loc="lower right")
     plt.show()
+
+def create_word_clouds(model, n=2, j=5, save=0, start=0, stop=None):
+    """
+    create_word_clouds(model, n, j, save, start, stop):
+    Params:
+        model: gensim LDA model object
+        n: number of subplots in a column  (default=2)
+        j: number of subplots in a row (default=5)
+        save: save the figure (optional, default=0)
+        start: from what number topic you wish to create the subplot (optional, default=0)
+        stop: stop the subplot at a certain topic (optional, default=None)
+        
+    Returns:
+        Word cloud image for every topic LDA created
+    """
+    # create color list
+    colors_list = [color for name, color in mcolors.XKCD_COLORS.items()]
+    
+    # instantiate cloud
+    cloud = WordCloud(background_color='white',
+                      width=1028,
+                      height=726,
+                      max_words=10,
+                      colormap='tab10',
+                      color_func=lambda *args, **kwargs: colors_list[start],
+                      prefer_horizontal=1.0)
+    
+    # extract topics
+    topics = model.show_topics(formatted=False)
+    
+    # create subplots 
+    fig, axes = plt.subplots(n, j, figsize=(10,10), sharex=True, sharey=True)
+    
+    for ax in axes.flatten():
+        fig.add_subplot(ax)
+        topic_words = dict(topics[start][1])
+        cloud.generate_from_frequencies(topic_words, max_font_size=300)
+        plt.gca().imshow(cloud)
+        plt.gca().set_title('Topic ' + str(start+1), fontdict=dict(size=16))
+        # hide axis
+        plt.gca().axis('off')
+        start += 1
+        if start == stop:
+            break
+        
+    plt.subplots_adjust(wspace=0, hspace=0)
+    # hide axis
+    plt.axis('off')
+    plt.margins(x=0, y=0)
+    plt.tight_layout()
+    if save:
+        plt.savefig(f'topics_cloud{start}.png')
+    plt.show()
+
+
+def print_topics(model, features, n):
+    """
+    print_topics(model, features, n):
+    Params:
+        model: sklearn LDA model object
+        features: sklearn vectorizers.get_feature_names
+        n: intenger - how many words to save/print for every topic
+    Returns:
+        Prints and saves a list of the 'n most important words for every topic
+    """
+    # make sure the features is in a numpy array to use .argsort
+    if type(features) == list:
+        features = np.array(features)
+    
+    # save the n most important words for each topic
+    components = model.components_ 
+    top_n = [features[component.argsort()][-n-1:] for component in components]
+    
+    # print the top words for every each topic
+    for i in range(len(top_n)):
+        print(f"Topic {i+1} most important words: {top_n[i]}")
+    return top_n
