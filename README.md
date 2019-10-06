@@ -41,23 +41,27 @@ The original dataset contained 1.7 million reviews on electronic products sold o
 
 ![](/Images/class_imbalance.png) ![](/Images/class_imbalance_fixed.png)
 
-We also engineered a number of features:
-- number of words in a review
-- number of exclamation points used in a review
-- number of question markers used in a review
+We completed a number of pre-processing and data cleaning steps including removing punctuation and stop words, making all letters lowercase, and lemmatizing words. Each of these steps was performed so that words could be grouped together based on their lemma and weren't treated as individual words.
 
 As part of our exploration, we looked at the most common words and bigrams in our corpus. Many of the most common words ultimately get removed as stop words or through our vectorization strategy in which we require words to appear in less than 50% of the documents. Interestingly, many of the most common bigrams ultimately end up as key componenets of different topics produced through unsupervised topic modeling.
 
 ![](/Images/Most_common_words.png) ![](/Images/Most_common_bigrams.png) 
 
-We completed a number of pre-processing and data cleaning steps including removing punctuation and stop words, making all letters lowercase, and lemmatizing words. Each of these steps was performed so that words could be grouped together based on their lemma and weren't treated as individual words.
+We also engineered a number of features:
+- number of words in a review
+- number of exclamation points used in a review
+- number of question markers used in a review
+
+As evident in the visuals below, these engineered features didn't seem to vary by rating. The classification models confirmed that these features had little impact on leading to accurate predictions of ratings. 
+
+** add visuals for review length, exclamation, question mark
 
 ## Part 1: Supervised models
 
 In this readme, we only discuss our initial and final models. For a look at the additional models we created, please see the python notebook titled Supervised_Models.
 
 1. Dummy Classifier:
-- The Dummy Classifier, which ______, acheieved an accuracy score of 20%. Given the distribution of our data into 5 rating categories, this makes sense. 
+- The Dummy Classifier, which ______, acheieved an accuracy score of 20%, given our data is distributed across 5 rating categories.
 
 2. Multinomial Naive Bayes
 - We were able to achieve a 47% accuracy score Multinomial Naive Bayes 
@@ -65,10 +69,17 @@ In this readme, we only discuss our initial and final models. For a look at the 
     - max_features: 10,000
     - min_df: 2 documents
     - max_df: 50% of documents
+    
+![](/Images/confusion.png)
+
+The confusion matrix shows the accuracy of the model across rating buckets. The model performed best when predicting ratings of 1 and 5
 
 ## Part 2: Unsupervised models
 
 - Topic Modeling with LDA
+
+![](/Images/topics_cloud5.png)
+![](/Images/topics_cloud10.png)
 
 ## Future Improvements
 
