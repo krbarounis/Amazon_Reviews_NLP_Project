@@ -43,11 +43,11 @@ The original dataset contained 1.7 million reviews on electronic products sold o
 
 We completed a number of pre-processing and data cleaning steps including removing punctuation and stop words, making all letters lowercase, and lemmatizing words. Each of these steps was performed so that words could be grouped together based on their lemma and weren't instead treated as individual words.
 
-As part of our exploration, we looked at the most common words and bigrams in our corpus. Many of the most common words ultimately get removed as stop words or through our vectorization strategy in which we require words to appear in less than 50% of the documents. Interestingly, many of the most common bigrams ultimately end up as key componenets of different topics produced through unsupervised topic modeling.
+As part of our exploration, we looked at the most common words and bigrams in our corpus. Many of the most common words ultimately get removed as stop words or through our vectorization strategy in which we require words to appear in less than 50% of the documents. Interestingly, many of the most common bigrams become key components in the topics produced by the unsupervised LDA model.
 
 ![](/Images/Most_common_words.png) ![](/Images/Most_common_bigrams.png) 
 
-We also engineered a number of features. However, these were ultimately excluded from the models as it became evident  the classification models informed us that these features had little impact on leading to accurate predictions of ratings, so they were ultimately excluded from the final mofel.  
+We also engineered a number of features. However, these were ultimately excluded from the models as it became evident that these features had little impact on leading to accurate predictions of ratings.
 - number of words in a review
 - number of exclamation points used in a review
 - number of question markers used in a review
