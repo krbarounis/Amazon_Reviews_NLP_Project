@@ -6,8 +6,8 @@ Contributors: Kristina Barounis & Gal Gilor
 
 This project utilizes natural language processing techniques and algorithms and a dataset of customer reviews from Amazon's electronic products department to answer the following two questions:
 
-1. Do written reviews of Amazon Products align with their associated ratings?
-2. What are the most discussed topics in these reviews?
+1. Do written reviews of Amazon products align with their associated ratings?
+2. What are the most commonly discussed topics in these reviews?
 
 - [Tech Stack](#tech-stack)
 
@@ -33,7 +33,7 @@ This project utilizes natural language processing techniques and algorithms and 
 
 ## Process
 
-For this project, we used a Stanford dataset of Amazon product reviews spanning 18 years. We cleaned the data using standard NLP techniques (i.e. removing stop words, lemmatizing, and tokenizing). We then used supervised classification algorithms to classify reviews into rating buckets (1-5). We also used an unsupervised topic modeling algorithm (LDA) to cluster reviews into topics.
+For this project, we used a Stanford dataset of Amazon electronic product reviews spanning 18 years. We cleaned the data using standard NLP techniques (i.e. removing stop words, lemmatizing, and tokenizing). We then used supervised classification algorithms to classify reviews into rating buckets (1-5). We also used the unsupervised topic modeling algorithm, LDA, to cluster reviews into topics.
   
 ## Data and EDA
 
@@ -43,7 +43,7 @@ The original dataset contained 1.7 million reviews on electronic products sold o
 
 We completed a number of pre-processing and data cleaning steps including removing punctuation and stop words, making all letters lowercase, and lemmatizing words. Each of these steps was performed so that words could be grouped together based on their lemma and weren't instead treated as individual words.
 
-As part of our exploration, we looked at the most common words and bigrams in our corpus. Many of the most common words ultimately get removed as stop words or through our vectorization strategy in which we require words to appear in less than 50% of the documents. Interestingly, many of the most common bigrams become key components in the topics produced by the unsupervised LDA model.
+As part of our exploration, we looked at the most common words and bigrams in our corpus. Many of the most common words ultimately get removed as stop words or through our vectorization strategy in which we require words to appear in less than 50% of the documents. Interestingly, many of the most common bigrams become key components of the topics produced by the unsupervised LDA model.
 
 ![](/Images/Most_common_words.png) ![](/Images/Most_common_bigrams.png) 
 
@@ -57,7 +57,7 @@ We also engineered a number of features. However, these were ultimately excluded
 Here we only discuss our initial and final models. For a look at the additional models we tested, please see the python notebook titled Supervised_Models.
 
 1. Dummy Classifier:
-- The Dummy Classifier acheieved an accuracy score of 20%, given our data is distributed across 5 rating categories.
+- The Dummy Classifier acheieved an accuracy score of 20%, given our data is distributed across 5 rating categories
 
 2. Multinomial Naive Bayes
 - The Multinomial Naive Bayes model was able to achieve the highest accuracy score of 47%
@@ -77,8 +77,8 @@ The confusion matrix shows the accuracy of the model across rating buckets. The 
 ## Future Improvements
 
 1. Optimize text cleaning process
-    - Given this was our first time working with NLP techniques, we did not create an optimal pipeline for NLP pre-processing. We tokenized and lemmatized our text before realizing that NLTK's vectorizers take in a corpus of documents, rather than a list of tokens, to create vectors.
+    - As this was our first time working with NLP techniques, we did not create an optimal pipeline for NLP pre-processing. We tokenized and lemmatized our text before realizing that NLTK's vectorizers take in a corpus of documents, where each document is a string of text, rather than a list of tokens, to create vectors.
     
 2. Use topics derived from LDA in supervised classification algorithms
-    - We would have liked to have used the topics derived from the unsupervised learning algorithm, LDA, as classes in a supervised classification model.
+    - We would have liked to have used the topics derived from the unsupervised learning algorithm, LDA, as classes in a supervised classification model. Our plan was to assign each review to its most dominant topic and create a classification model that predicted the reivew's topic.
 
