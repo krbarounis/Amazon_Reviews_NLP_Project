@@ -14,7 +14,7 @@ This project utilizes natural language processing techniques on a dataset of cus
 - [Process](#process)
 
 - [Data and EDA](#data-and-eda)
-    - [Topic Modeling](#topicmodeling)
+    - [Topic Modeling](#topic-modeling)
     
 - [Classifier](#classifier)
 
@@ -39,13 +39,20 @@ For this project, we used a Stanford dataset of Amazon electronic product review
 
 The original dataset contained 1.7 million reviews on electronic products sold on Amazon. We dropped 1.2 million of the reviews to reduce class imbalance across rating buckets, and for processing efficiency, ultimately resulting in 250,000 observations.
 
-![](/Images/class_imbalance.png) ![](/Images/class_imbalance_fixed.png)
+<img src="Images/class_imbalance.png" width=400> <img src="Images/class_imbalance_fixed.png" width=400>
 
 We completed a number of pre-processing and data cleaning steps including removing punctuation and stop words, making all letters lowercase, and lemmatizing words. Each of these steps was performed so that words could be grouped together based on their lemma and weren't instead treated as individual, unique words.
 
-As part of our exploration, we looked at the most common words and bigrams in our corpus. Many of the most common words ultimately get removed as stop words or through our vectorization strategy in which we require words to appear in less than 50% of the documents. Interestingly, many of the most common bigrams become key components of the topics produced by the unsupervised LDA model.
+As part of our exploration, we looked at the most common words and bigrams in our corpus. As expected, the most common words and bigrams  are stop words, which we remove from the corpus in the pre-processing stage. Many of the most common words are also removed during the vectorization step, in which we require words to appear in less than 50% of the documents. 
 
-![](/Images/Most_common_words.png) ![](/Images/Most_common_bigrams.png) 
+**Before removing stop words**
+
+![](/Images/Most_Common_Words_in_Corpus.png)  ![](/Images/Most_Common_Bigrams_in_Corpus.png) 
+
+After removing stop words, the list of top words and bigrams now give us more insight into what the reviews are really about. Interestingly, many of the most common bigrams show up as key components of the topics produced by the unsupervised LDA model.
+
+**After removing stop words**
+![](/Images/Most_Common_Words_in_Corpus_(Stop_Words_Removed).png) ![](/Images/Most_Common_Bigrams_in_Corpus_(Stop_Words_Removed).png) 
 
 We also engineered a number of features. However, these were ultimately excluded from the models as it became evident that these features had little impact on leading to accurate predictions of ratings.
 - number of words in a review
@@ -53,7 +60,11 @@ We also engineered a number of features. However, these were ultimately excluded
 - number of question markers used in a review
 
 ### Topic modeling
-Lastly, as an additional step in exploring our data, we used the Gensim library to perform topic modeling on our corpus. This helped us understand what the key discussion points were across our 250k reviews.
+Lastly, as an additional step in exploring our data, we used the Gensim library to perform topic modeling on our corpus. This helped us understand what the key discussion points were across our 50k reviews.
+
+We created word clouds to visualize the key words that comprise each topic. The size of the word is proportional to its weight in the topic. As mentioned above, some of the words that appeared as common bigrams appear here as key words in some of the topics (e.g.: usb, battery). However, these topics seem to be mostly divided by product, whereas the bigrams reflected the customer's sentiment about products (e.g. work well, work fine, would recommend).
+
+![](/Images/topics_cloud5.png) ![](/Images/topics_cloud10.png)
 
 ## Classifier
 
@@ -75,8 +86,6 @@ The confusion matrix shows the accuracy of the model across rating buckets. The 
 
 ## Future Improvements
 
-- Test out VADER scores as potential feature in our NB model 
+- Run and evaluate additional LDA models to find optimal number of topics
 - Use topics derived from LDA as feature in our NB model
-- Use topics derived from LDA as target variable in a new classification model to see how this compares to predicting ratings
-
-
+- Test out VADER scores as potential feature in our NB model
