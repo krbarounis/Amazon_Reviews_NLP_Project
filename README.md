@@ -86,6 +86,7 @@ The confusion matrix shows the accuracy of the model across rating buckets. The 
 
 ## Future Improvements
 
+- Expand list of stop words to help improve topics derived via LDA
 - Run and evaluate additional LDA models to find optimal number of topics
 - Use topics derived from LDA as feature in our NB model
 - Test out VADER scores as potential feature in our NB model
